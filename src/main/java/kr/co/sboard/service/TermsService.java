@@ -22,7 +22,7 @@ public class TermsService {
 
         if(optTerms.isPresent()){
             Terms terms = optTerms.get();
-            
+
             // modelmapper를 이용한 변환
             TermsDTO termsDTO = modelMapper.map(terms, TermsDTO.class);
             return termsDTO;
