@@ -38,7 +38,7 @@ spring:
                         enable: true
     application:
         name: sboard
-        version: 0.0.1
+        version: ${version}
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: Qwerty123@
