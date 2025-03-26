@@ -6,11 +6,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Getter
 @ToString
+@Builder
 @Entity
 @Table(name = "Article")
 public class Article {
@@ -33,6 +33,7 @@ public class Article {
     @CreationTimestamp
     private LocalDateTime wdate;
 
+
     @PrePersist
     public void prePersist(){
         // 엔티티 기본 속성 값 초기화
@@ -40,5 +41,4 @@ public class Article {
             this.cate = "free";
         }
     }
-
 }

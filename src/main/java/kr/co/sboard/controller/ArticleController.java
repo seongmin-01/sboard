@@ -3,18 +3,21 @@ package kr.co.sboard.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.sboard.dto.ArticleDTO;
 import kr.co.sboard.dto.FileDTO;
+import kr.co.sboard.dto.PageRequestDTO;
+import kr.co.sboard.dto.PageResponseDTO;
 import kr.co.sboard.service.ArticleService;
 import kr.co.sboard.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 public class ArticleController {
 
@@ -22,7 +25,13 @@ public class ArticleController {
     private final FileService fileService;
 
     @GetMapping("/article/list")
-    public String list(){
+    public String list(Model model, PageRequestDTO pageRequestDTO) {
+
+        // 전체 글 조회 서비스 호출
+        PageResponseDTO pageResponseDTO = articleService.findAll(pageRequestDTO);
+
+        model.addAttribute(pageResponseDTO);
+
         return "/article/list";
     }
 
@@ -42,7 +51,8 @@ public class ArticleController {
     }
 
     @PostMapping("/article/write")
-    public String write(ArticleDTO articleDTO, HttpServletRequest request) {
+    public String write(ArticleDTO articleDTO, HttpServletRequest request){
+
         String regip = request.getRemoteAddr();
         articleDTO.setRegip(regip);
         log.info("articleDTO : {}", articleDTO);
@@ -60,6 +70,7 @@ public class ArticleController {
             fileService.save(fileDTO);
         }
 
+        // 리다이렉트
         return "redirect:/article/list";
     }
 }
