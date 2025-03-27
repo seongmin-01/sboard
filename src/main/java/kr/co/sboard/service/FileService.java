@@ -98,12 +98,20 @@ public class FileService {
 
     public ResponseEntity downloadFile(int fno) {
 
+
+
         Optional<File> optFile = fileRepository.findById(fno);
 
         File file = null;
 
         if(optFile.isPresent()) {
             file = optFile.get();
+
+            // 파일 다운로드 카운트 + 1
+            int count = file.getDownload();
+            file.setDownload(count+1);
+
+            fileRepository.save(file);
         }
 
         try {

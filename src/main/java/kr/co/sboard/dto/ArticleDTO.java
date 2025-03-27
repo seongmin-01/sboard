@@ -33,7 +33,10 @@ public class ArticleDTO {
     private List<FileDTO> files;
 
     public String getWdate() {
-        return wdate.substring(0, 10);
+        if(wdate != null) {
+            return wdate.substring(0, 10);
+        }
+        return null;
     }
 
     // 첨부파일 객체
