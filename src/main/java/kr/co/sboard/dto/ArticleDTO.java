@@ -1,5 +1,7 @@
 package kr.co.sboard.dto;
 
+import kr.co.sboard.entity.File;
+import kr.co.sboard.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +28,9 @@ public class ArticleDTO {
 
     // 추가 필드
     private String nick;
+
+    private UserDTO user;
+    private List<FileDTO> files;
 
     public String getWdate() {
         return wdate.substring(0, 10);
